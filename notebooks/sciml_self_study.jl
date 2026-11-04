@@ -204,7 +204,7 @@ let
     fig = Plt.plot(
         growth_solution.t, growth_solution.u;
         label = "Simulated biomass", xlabel = "Time (day)", ylabel = "Dry mass (g)",
-        lw = 3, color = :seagreen, legend = :bottomright, size = (760, 360)
+        lw = 3, color = :seagreen, legend = :bottomright, margin = 5 * Plt.mm, size = (760, 360)
     )
     Plt.hline!(fig, [growth_K]; label = "K", ls = :dash, color = :gray)
     fig
@@ -297,7 +297,7 @@ let
     Plt.plot(
         accuracy_result.times, max.(accuracy_result.errors, eps(Float64));
         xlabel = "Time (day)", ylabel = "Absolute mass error (g)", yscale = :log10,
-        label = "Numerical vs exact", lw = 2, color = :purple, size = (760, 300)
+        label = "Numerical vs exact", lw = 2, color = :purple, margin = 5 * Plt.mm, size = (760, 300)
     )
 end
 
@@ -362,7 +362,7 @@ let
     fig = Plt.plot(
         resource_solution.t, values';
         label = ["Biomass B" "Resource R"], lw = 2,
-        xlabel = "Time (day)", ylabel = "Mass equivalent (g)", size = (760, 330)
+        xlabel = "Time (day)", ylabel = "Mass equivalent (g)", margin = 5 * Plt.mm, size = (760, 330)
     )
     Plt.plot!(fig, resource_solution.t, vec(sum(values; dims = 1)); label = "B + R", ls = :dash)
     fig
@@ -559,7 +559,7 @@ fit_data = (
 let
     fig = Plt.scatter(
         fit_data.times, fit_data.observed; label = "Training observations",
-        xlabel = "Time (day)", ylabel = "Dry mass (g)", color = :navy, size = (760, 340)
+        xlabel = "Time (day)", ylabel = "Dry mass (g)", color = :navy, margin = 5 * Plt.mm, size = (760, 340)
     )
     Plt.scatter!(
         fig, learning_data.times[learning_data.holdout],
@@ -648,7 +648,7 @@ let
     prediction = predict_logistic(fitted_parameters, times)
     fig = Plt.plot(
         times, prediction; label = "Fitted ODE", color = :seagreen, lw = 3,
-        xlabel = "Time (day)", ylabel = "Dry mass (g)", legend = :bottomright, size = (760, 360)
+        xlabel = "Time (day)", ylabel = "Dry mass (g)", legend = :bottomright, margin = 5 * Plt.mm, size = (760, 360)
     )
     Plt.plot!(
         fig, times, logistic_exact.(times, Ref(learning_data.truth_p), 2.0);
@@ -668,7 +668,7 @@ let
     residuals = predict_logistic(fitted_parameters, learning_data.times) .- learning_data.observed
     fig = Plt.scatter(
         learning_data.times, residuals; label = "Prediction − observation",
-        xlabel = "Time (day)", ylabel = "Residual (g)", size = (760, 280)
+        xlabel = "Time (day)", ylabel = "Residual (g)", margin = 5 * Plt.mm, size = (760, 280)
     )
     Plt.hline!(fig, [0.0]; label = "Zero", color = :gray, ls = :dash)
     fig
@@ -883,7 +883,7 @@ let
         term_plot, states, correction_term.(states, Ref(hybrid_fit.u));
         label = "Learned correction", ls = :dash, color = :purple, lw = 2
     )
-    Plt.plot(trajectory, term_plot; layout = (1, 2), size = (840, 330), legend = :topleft)
+    Plt.plot(trajectory, term_plot; layout = (1, 2), margin = 5 * Plt.mm, size = (840, 330), legend = :topleft)
 end
 
 # ╔═╡ 35a9c2d4-80eb-5be7-ba27-05368389d045
